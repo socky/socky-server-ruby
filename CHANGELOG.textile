@@ -5,7 +5,7 @@ h2. Edge
 * new features:
 ** rename project to 'socky-server-ruby' for future compatibility
 * bugfixes:
-** none
+** use fund_all in finders instead of collect in finders
 
 h2. 0.2.1 / 2010-10-09
 
