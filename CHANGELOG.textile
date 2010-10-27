@@ -1,6 +1,6 @@
 h1. Changelog
 
-h2. Edge
+h2. 0.4.0 / 2010-10-27
 
 * new features:
 ** rename project to 'socky-server-ruby' for future compatibility
