@@ -2,13 +2,11 @@ require 'rake'
 require 'rake/clean'
 CLEAN.include %w(**/*.{log,rbc})
 
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 
 task :default => :spec
 
-Spec::Rake::SpecTask.new do |t|
-  t.ruby_opts = ['-rtest/unit']
-  t.spec_files = FileList['spec/**/*_spec.rb']
+RSpec::Core::RakeTask.new(:spec) do |t|
 end
 
 begin
@@ -23,7 +21,7 @@ begin
     gemspec.add_dependency 'em-websocket', '>= 0.1.4'
     gemspec.add_dependency 'em-http-request'
     gemspec.add_dependency 'json'
-    gemspec.add_development_dependency 'rspec', '~> 1.3'
+    gemspec.add_development_dependency 'rspec', '~> 2.0'
     gemspec.add_development_dependency 'rack'
     gemspec.add_development_dependency 'mongrel'
     gemspec.files.exclude ".gitignore"
