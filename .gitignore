@@ -1,0 +1,6 @@
+pkg/
+tmp/
+*.gem
+*.gemspec
+
+spec/files/socky.log
