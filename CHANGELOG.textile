@@ -1,5 +1,12 @@
 h1. Changelog
 
+h2. Edge
+
+* new features:
+** new communication API
+* bugfixes:
+** none
+
 h2. 0.4.0 / 2010-10-27
 
 * new features:

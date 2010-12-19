@@ -10,56 +10,53 @@ module Socky
 
       # Return filtered list of connections
       # @param [Hash] opts the options for filters.
-      # @option opts [Hash] :to ({}) return only listed clients/channels. keys supported: clients, channels
-      # @option opts [Hash] :except ({}) return all clients/channels except listed. keys supported: clients, channels
+      # @option opts [Array] :channels return connections from listed channels
+      # @option opts [Array] :users return connections of listed users
       # @return [Array] list of connections
       # @example return all connections
       #   Socky::Connection.find
       # @example return no connections
       #   # empty array as param means "no channels"
-      #   # nil is handles as "ignore param" so all clients/channels will be executed
-      #   Socky::Connection.find(:to => { :clients => [] })
-      #   Socky::Connection.find(:to => { :channels => [] })
+      #   # nil is handles as "ignore param" so all users/channels will be executed
+      #   Socky::Connection.find(:channels => [])
+      #   Socky::Connection.find(:users => [])
       # @example return connections of users "first" and "second" from channels "some_channel"
-      #   Socky::Connection.find(:to => { :clients => ["first","second"], :channels => "some_channel" })
-      # @example return all connections from channel "some_channel" except of ones belonging to "first"
-      #   Socky::Connection.find(:to => { :channels => "some_channel" }, :except => { :clients => "first" })
+      #   Socky::Connection.find(:channels => "some_channel", :users => ["first","second"])
       def find(opts = {})
-        to = symbolize_keys(opts[:to]) || {}
-        exclude = symbolize_keys(opts[:except]) || {}
-
         connections = find_all
-        connections = filter_by_clients(connections, to[:clients], exclude[:clients])
-        connections = filter_by_channels(connections, to[:channels], exclude[:channels])
+        connections = filter_by_channels(connections, opts[:channels])
+        connections = filter_by_users(connections, opts[:users])
 
         connections
       end
 
       private
 
-      def filter_by_clients(connections, included_clients = nil, excluded_clients = nil)
-        # Empty table means "no users" - nil means "all users"
-        return [] if (included_clients.is_a?(Array) && included_clients.empty?)
+      def filter_by_users(connections, users = nil)
+        # nil means "all users"
+        return connections if users.nil?
 
-        included_clients = Array(included_clients)
-        excluded_clients = Array(excluded_clients)
+        # Empty table means "no users"
+        return [] if users.is_a?(Array) && users.empty?
+
+        users = Array(users)
 
         connections.find_all do |connection|
-          connection if (included_clients.empty? || included_clients.include?(connection.client)) && !excluded_clients.include?(connection.client)
+          connection if users.include?(connection.user)
         end
       end
 
-      def filter_by_channels(connections, included_channels = nil, excluded_channels = nil)
-        # Empty table means "no channels" - nil means "all channels"
-        return [] if (included_channels.is_a?(Array) && included_channels.empty?)
+      def filter_by_channels(connections, channels = nil)
+        # nil means "all channels"
+        return connections if channels.nil?
 
-        included_channels = Array(included_channels)
-        excluded_channels = Array(excluded_channels)
+        # Empty table means "no channels"
+        return [] if channels.is_a?(Array) && channels.empty?
+
+        channels = Array(channels)
 
         connections.find_all do |connection|
-          connection if connection.channels.any? do |channel|
-            (included_channels.empty? || included_channels.include?(channel) ) && !excluded_channels.include?(channel)
-          end
+          connection unless (connection.channels & channels).empty?
         end
       end
     end

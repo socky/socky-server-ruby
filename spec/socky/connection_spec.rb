@@ -23,7 +23,7 @@ describe Socky::Connection do
       socket = mock(:socket, :request => { "Query" => {}})
       @connection = described_class.new(socket)
     end
-    
+
     context "#admin" do
       it "should return true for socket request data admin equal to '1' and 'true'" do
         ["1","true"].each do |value|
@@ -42,12 +42,12 @@ describe Socky::Connection do
         @connection.admin.should be_false
       end
     end
-    it "#client should return client_id from socket request data" do
-      @connection.socket.request["Query"]["client_id"] = "abstract"
-      @connection.client.should eql("abstract")
+    it "#client should return user_id from socket request data" do
+      @connection.socket.request["Query"]["user_id"] = "abstract"
+      @connection.user.should eql("abstract")
     end
-    it "#secret should return client_secret from socket request data" do
-      @connection.socket.request["Query"]["client_secret"] = "abstract"
+    it "#secret should return user_secret from socket request data" do
+      @connection.socket.request["Query"]["user_secret"] = "abstract"
       @connection.secret.should eql("abstract")
     end
     context "#channels" do
@@ -138,12 +138,12 @@ describe Socky::Connection do
       described_class.connections.should_not include(@connection)
       described_class.connections.should have(0).items
     end
-    it "#to_json should return self as hash of object_id, client_id and channels" do
-      @connection.socket.request["Query"]["client_id"] = "abstract"
+    it "#to_json should return self as hash of object_id, user_id and channels" do
+      @connection.socket.request["Query"]["user_id"] = "abstract"
       @connection.socket.request["Query"]["channels"] = "first,second,third"
       json = @connection.to_json
       JSON.parse(json).should eql({ "id" => @connection.object_id,
-                                    "client_id" => @connection.client,
+                                    "user_id" => @connection.user,
                                     "channels" => @connection.channels})
     end
   end

@@ -19,7 +19,7 @@ module Socky
         @connections ||= []
       end
     end
-    
+
     # initialize new connection
     # @param [WebSocket] socket valid connection socket
     def initialize(socket)
@@ -40,18 +40,18 @@ module Socky
       ["true","1"].include?(query["admin"])
     end
 
-    # client individual id - multiple connection can be organized
-    # by client id and later accessed at once
-    # @return [String] client id(might be nil)
-    def client
-      query["client_id"]
+    # user individual id - multiple connection can be organized
+    # by user id and later accessed at once
+    # @return [String] user id(might be nil)
+    def user
+      query["user_id"]
     end
 
-    # client individual secret - used to check if user is admin
+    # user individual secret - used to check if user is admin
     # and to sending authentication data to server(by subscribe_url)
-    # @return [String] client secret(might be nil)
+    # @return [String] user secret(might be nil)
     def secret
-      query["client_secret"]
+      query["user_secret"]
     end
 
     # client channel list - one client can have multiple channels
@@ -104,7 +104,7 @@ module Socky
     def to_json(*args)
       {
         :id => self.object_id,
-        :client_id => self.client,
+        :user_id => self.user,
         :channels => self.channels.reject{|channel| channel.nil?}
       }.to_json
     end
