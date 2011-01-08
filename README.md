@@ -49,7 +49,7 @@ After that you can tweak this file, or just run server with default values:
 
 ## Configuration
 
-The following is a list of the currently supported configuration options. These can all be specified by creating a config file. There are also flags for the @socky@ executable which are described below next to their respective configuration options.
+The following is a list of the currently supported configuration options. These can all be specified by creating a config file. There are also flags for the `socky` executable which are described below next to their respective configuration options.
 
 ### Configuration Settings
 
