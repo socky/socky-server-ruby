@@ -5,7 +5,7 @@ require 'em-websocket'
 $:.unshift(File.dirname(__FILE__))
 require 'em-websocket_hacks'
 
-# Socky is a WebSocket server and client for Ruby on Rails 
+# Socky is a WebSocket server and client for Ruby on Rails
 # @author Bernard "Imanel" Potocki
 # @see http://github.com/imanel/socky_gem main repository
 module Socky
@@ -54,7 +54,7 @@ module Socky
 
     # default config path
     def config_path
-      options[:config_path] || File.join(%w( / var run socky.yml ))
+      options[:config_path] || nil
     end
 
     private

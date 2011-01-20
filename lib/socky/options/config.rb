@@ -21,6 +21,7 @@ module Socky
         # @raise [NoConfigFile] if file doesn't exists
         # @raise [InvalidConfig] if file isn't valid yaml
         def read(path, args = {})
+          return {} if path.nil?
           raise(NoConfigFile, "You must generate a config file (socky -g filename.yml)") unless File.exists?(path)
           result = YAML::load(ERB.new(IO.read(path)).result)
           raise(InvalidConfig, "Provided config file is invalid.") unless result.is_a?(Hash)

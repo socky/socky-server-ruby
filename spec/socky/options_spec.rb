@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Socky::Options do
-  
+
   context "class" do
     before(:all) do
       @default_options = Socky.options
@@ -20,7 +20,7 @@ describe Socky::Options do
         Socky::Options.prepare([:a,:b,:c])
       end
       it "should call read_config with patch" do
-        Socky::Options::Config.should_receive(:read).with("/var/run/socky.yml", :kill => nil)
+        Socky::Options::Config.should_receive(:read).with(nil, :kill => nil)
         Socky::Options.prepare([])
       end
       it "should set Socky options to default hash when parse_options and read_config don't do anything" do
@@ -45,15 +45,14 @@ describe Socky::Options do
       end
     end
   end
-  
+
   def default_options
     {
       :port => 8080,
       :log_path => nil,
       :debug => false,
       :deep_debug => false,
-      :secure => false,
-      :config_path => "/var/run/socky.yml"
+      :secure => false
     }
   end
 

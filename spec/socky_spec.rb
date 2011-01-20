@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Socky do
-  
+
   context "class" do
-    
+
     it "should have non-blank version" do
       Socky::VERSION.should_not be_nil
     end
@@ -75,15 +75,14 @@ describe Socky do
       Socky.stub!(:options).and_return({:pid_path => "abstract"})
       Socky.pid_path.should eql("abstract")
     end
-    it "should have default config path" do
-      Socky.config_path.should_not be_nil
-      Socky.config_path.should eql("/var/run/socky.yml")
+    it "should not have default config path" do
+      Socky.config_path.should be_nil
     end
     it "should be able to change config path by settion config_path option" do
       Socky.stub!(:options).and_return({:config_path => "abstract"})
       Socky.config_path.should eql("abstract")
     end
-    
+
   end
-  
+
 end

@@ -8,8 +8,11 @@ describe Socky::Options::Config do
     before(:each) do
       described_class.stub!(:puts)
     end
-    
+
     context "#read" do
+      it "should return empty hash if config path is nil" do
+        described_class.read(nil).should eql({})
+      end
       it "should raise error if file doesn't exists" do
         described_class.should_receive(:puts).with("You must generate a config file (socky -g filename.yml)")
         lambda { described_class.read("abstract") }.should raise_error SystemExit
@@ -27,7 +30,7 @@ describe Socky::Options::Config do
         described_class.read(FILES_DIR + "/default.yml").should eql(default_options)
       end
     end
-    
+
     context "#generate" do
       it "should raise error if file exists" do
         described_class.should_receive(:puts).with("Config file already exists. You must remove it before generating a new one.")
@@ -59,7 +62,7 @@ describe Socky::Options::Config do
       end
     end
   end
-  
+
   def default_options
     {
       :port => 8080,
@@ -68,5 +71,5 @@ describe Socky::Options::Config do
       :secure => false
     }
   end
-  
+
 end

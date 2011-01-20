@@ -21,11 +21,10 @@ module Socky
         self.options.merge!(config_options)
         self.options.merge!(parsed_options)
       end
-      
+
       # default options for server
       def default_options
         {
-          :config_path => config_path,
           :port => 8080,
           :debug => false,
           :deep_debug => false,

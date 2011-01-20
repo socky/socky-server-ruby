@@ -24,7 +24,7 @@ module Socky
               Config.generate(result[:config_path])
             end
 
-            opts.on("-c", "--config FILE", String, "Path to configuration file.", "(default: #{Socky.config_path})") do |path|
+            opts.on("-c", "--config FILE", String, "Path to configuration file.") do |path|
               result[:config_path] = File.expand_path(path)
             end
 
