@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Socky::Connection::Authentication do
   include Socky::Connection::Authentication
-  
+
   context "instance" do
     context "#subscribe_request" do
       before(:each) do
@@ -89,12 +89,12 @@ describe Socky::Connection::Authentication do
       end
     end
     context "#authenticate_as_admin" do
-      it "should return true if client secret is equal server secret" do
+      it "should return true if user secret is equal server secret" do
         stub!(:secret).and_return("test")
         Socky.stub!(:options).and_return({:secret => "test"})
         authenticate_as_admin.should be_true
       end
-      it "should return false if client secret is not equal server secret" do
+      it "should return false if user secret is not equal server secret" do
         stub!(:secret).and_return("abstract")
         Socky.stub!(:options).and_return({:secret => "test"})
         authenticate_as_admin.should be_false
@@ -153,30 +153,30 @@ describe Socky::Connection::Authentication do
     end
     context "#params_for_request" do
       before(:each) do
-        stub!(:client)
+        stub!(:user)
         stub!(:secret)
         stub!(:channels).and_return([])
       end
-      it "should return empty hash if none of (client,secret,channels) are set" do
+      it "should return empty hash if none of (user,secret,channels) are set" do
         params_for_request.should eql({})
       end
-      it "should return client as client_id if set" do
-        stub!(:client).and_return("some client")
-        params_for_request.should eql({:client_id => "some client"})
+      it "should return user as user_id if set" do
+        stub!(:user).and_return("some user")
+        params_for_request.should eql({:user_id => "some user"})
       end
-      it "should return secret as client_secret if set" do
+      it "should return secret as user_secret if set" do
         stub!(:secret).and_return("some secret")
-        params_for_request.should eql({:client_secret => "some secret"})
+        params_for_request.should eql({:user_secret => "some secret"})
       end
       it "should return channels if not empty" do
         stub!(:channels).and_return(["some channel"])
         params_for_request.should eql({:channels => ["some channel"]})
       end
-      it "should return client, secret and channels as hash if all are set" do
-        stub!(:client).and_return("some client")
+      it "should return user, secret and channels as hash if all are set" do
+        stub!(:user).and_return("some user")
         stub!(:secret).and_return("some secret")
         stub!(:channels).and_return(["some channel"])
-        params_for_request.should eql({:client_id => "some client", :client_secret => "some secret", :channels => ["some channel"]})
+        params_for_request.should eql({:user_id => "some user", :user_secret => "some secret", :channels => ["some channel"]})
       end
     end
   end

@@ -42,7 +42,7 @@ describe Socky::Connection do
         @connection.admin.should be_false
       end
     end
-    it "#client should return user_id from socket request data" do
+    it "#user should return user_id from socket request data" do
       @connection.socket.request["Query"]["user_id"] = "abstract"
       @connection.user.should eql("abstract")
     end

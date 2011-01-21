@@ -5,7 +5,7 @@ module Socky
       include Socky::Misc
 
       # check if user is valid and then send him authentication data and add to pool
-      # if not then user is given failure response(so client javascript
+      # if not then user is given failure response(so user javascript
       # will know that is should not reconnect again) and then is disconnected
       # admin user is automaticaly authenticated but isn't added to pool
       # he will be authenticated when he will try to send message
@@ -30,7 +30,7 @@ module Socky
         end unless admin || authenticated?
       end
 
-      # if user is authenticated then he is removed from pool and 
+      # if user is authenticated then he is removed from pool and
       # unsubscribe notification is sent to server unless he is admin
       # if user is not authenticated then nothing will happen
       def unsubscribe_request
@@ -88,8 +88,8 @@ module Socky
 
       def params_for_request
         {
-          :client_id => client,
-          :client_secret => secret,
+          :user_id => user,
+          :user_secret => secret,
           :channels => channels
         }.reject{|key,value| value.nil? || value.empty?}
       end

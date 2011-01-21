@@ -54,29 +54,29 @@ module Socky
       query["user_secret"]
     end
 
-    # client channel list - one client can have multiple channels
-    # every client have at last channel - if no channels are provided
+    # user channel list - one user can have multiple channels
+    # every user have at last channel - if no channels are provided
     # at default then user is assigned to nil channel
-    # @return [Array] list of client channels
+    # @return [Array] list of user channels
     def channels
       @channels ||= query["channels"].to_s.split(",").collect(&:strip).reject(&:empty?)
       @channels[0] ||= nil # Every user should have at last one channel
       @channels
     end
 
-    # check if client is valid and add him to pool or disconnect
+    # check if user is valid and add him to pool or disconnect
     def subscribe
       debug [self.name, "incoming"]
       subscribe_request
     end
 
-    # remove client from pool and disconnect
+    # remove user from pool and disconnect
     def unsubscribe
       debug [self.name, "terminated"]
       unsubscribe_request
     end
 
-    # check if client can send messages and process it
+    # check if user can send messages and process it
     # @see Socky::Message.process
     # @param [String] msg message to send in json format
     def process_message(msg)
@@ -87,7 +87,7 @@ module Socky
       end
     end
 
-    # send message to client
+    # send message to user
     # @param [Object] msg data to send(will be converted to json using to_json method)
     def send_message(msg)
       send_data({:type => :message, :body => msg})
@@ -100,7 +100,7 @@ module Socky
 
     # convert connection to json(used in show_connection query)
     # @param [Any] args it is required by different versions of ruby
-    # @return [JSon] id, client_id and channel list data
+    # @return [JSon] id, user_id and channel list data
     def to_json(*args)
       {
         :id => self.object_id,
