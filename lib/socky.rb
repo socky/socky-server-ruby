@@ -1,3 +1,10 @@
+require 'rubygems'
+
+module Socky
+  VERSION = '0.5.0-pre'
+end
+
+
 # require 'rubygems'
 # require 'logger'
 # require 'fileutils'
