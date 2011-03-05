@@ -1,7 +1,12 @@
 require 'rubygems'
+require 'rack/websocket'
 
 module Socky
-  VERSION = '0.5.0-pre'
+  VERSION = '0.5.0.pre'
+  ROOT = File.expand_path(File.dirname(__FILE__))
+  
+  autoload :HTTP,      "#{ROOT}/socky/http"
+  autoload :WebSocket, "#{ROOT}/socky/websocket"
 end
 
 
