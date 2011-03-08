@@ -10,6 +10,7 @@ module Socky
   ROOT = File.expand_path(File.dirname(__FILE__))
   
   autoload :Application, "#{ROOT}/socky/application"
+  autoload :Channel,     "#{ROOT}/socky/channel"
   autoload :Connection,  "#{ROOT}/socky/connection"
   autoload :HTTP,        "#{ROOT}/socky/http"
   autoload :Logger,      "#{ROOT}/socky/logger"
