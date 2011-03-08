@@ -2,10 +2,7 @@
 
 ## Edge
 
-- new features:
-  - new communication API
-- bugfixes:
-  - none
+- rewrite from scratch
 
 ## 0.4.0 / 2010-10-27
 
