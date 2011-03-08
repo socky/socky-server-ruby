@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.description = %q{Socky is a WebSocket server and client for Ruby}
   
   s.add_dependency 'websocket-rack'
+  s.add_dependency 'json'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

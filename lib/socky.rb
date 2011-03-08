@@ -1,12 +1,15 @@
 require 'rubygems'
 require 'rack/websocket'
+require 'json'
 
 module Socky
   VERSION = '0.5.0.pre'
   ROOT = File.expand_path(File.dirname(__FILE__))
   
-  autoload :HTTP,      "#{ROOT}/socky/http"
-  autoload :WebSocket, "#{ROOT}/socky/websocket"
+  autoload :Application, "#{ROOT}/socky/application"
+  autoload :Connection,  "#{ROOT}/socky/connection"
+  autoload :HTTP,        "#{ROOT}/socky/http"
+  autoload :WebSocket,   "#{ROOT}/socky/websocket"
 end
 
 

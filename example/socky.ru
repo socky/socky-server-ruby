@@ -2,6 +2,9 @@
 # $ thin -R socky.ru start
 require 'lib/socky'
 
+# Cheat a little for now
+Socky::Application.new('my_app', 'my_secret')
+
 # Placeholder app
 app = proc do |env|
   [
@@ -14,7 +17,7 @@ app = proc do |env|
   ]
 end
 
-use Rack::CommonLogger
+# use Rack::CommonLogger
 
 map '/websocket' do
   run Socky::WebSocket.new
