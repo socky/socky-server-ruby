@@ -1,6 +1,2 @@
 pkg/
-tmp/
-*.gem
 Gemfile.lock
-
-spec/files/socky.log
