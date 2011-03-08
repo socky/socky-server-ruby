@@ -9,6 +9,8 @@ module Socky
   autoload :Application, "#{ROOT}/socky/application"
   autoload :Connection,  "#{ROOT}/socky/connection"
   autoload :HTTP,        "#{ROOT}/socky/http"
+  autoload :Logger,      "#{ROOT}/socky/logger"
+  autoload :Misc,        "#{ROOT}/socky/misc"
   autoload :WebSocket,   "#{ROOT}/socky/websocket"
 end
 

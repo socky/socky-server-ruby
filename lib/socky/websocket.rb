@@ -1,5 +1,6 @@
 module Socky
   class WebSocket < ::Rack::WebSocket::Application
+    include Misc
 
     DEFAULT_OPTIONS = {
       :debug => false
@@ -13,7 +14,7 @@ module Socky
     
     # Called when message is received
     def on_message(msg)
-      puts "message received: " + msg
+      log("message received", msg)
     end
     
     # Called when client closes clonnecton
@@ -29,7 +30,7 @@ module Socky
     # Send JSON-encoded data instead of clear text
     def send_data(data)
       jsonified_data = data.to_json
-      puts 'Sending: ' + jsonified_data
+      log('sending', jsonified_data)
       super(jsonified_data)
     end
   end
