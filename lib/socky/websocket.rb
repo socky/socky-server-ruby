@@ -21,7 +21,7 @@ module Socky
       @connection.destroy if @connection
     end
     
-    # Rack end
+    # Rack env
     def env
       @env
     end
