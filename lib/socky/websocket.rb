@@ -7,8 +7,8 @@ module Socky
     
     # Called when connection is opened
     def on_open
-      @conn = Socky::Connection.new(self)
-      send_data @conn.initialization_status
+      @connection = Socky::Connection.new(self)
+      send_data @connection.initialization_status
     end
     
     # Called when message is received
@@ -18,7 +18,7 @@ module Socky
     
     # Called when client closes clonnecton
     def on_close
-      @conn.destroy if @conn
+      @connection.destroy if @connection
     end
     
     # Rack end
