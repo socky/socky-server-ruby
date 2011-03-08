@@ -3,7 +3,7 @@ module Socky
     class << self
       
       def enabled?
-        @enabled ||= true
+        @enabled ||= false
       end
     
       def enabled=(val)

@@ -6,6 +6,12 @@ module Socky
       :debug => false
     }
     
+    def initialize(*args)
+      super
+      
+      Logger.enabled = @options[:debug]
+    end
+    
     # Called when connection is opened
     def on_open
       @connection = Socky::Connection.new(self)

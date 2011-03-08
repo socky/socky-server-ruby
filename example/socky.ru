@@ -20,7 +20,7 @@ end
 # use Rack::CommonLogger
 
 map '/websocket' do
-  run Socky::WebSocket.new
+  run Socky::WebSocket.new :debug => true
 end
 
 map '/http' do
