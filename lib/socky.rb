@@ -13,6 +13,7 @@ module Socky
   autoload :Channel,     "#{ROOT}/socky/channel"
   autoload :Connection,  "#{ROOT}/socky/connection"
   autoload :Logger,      "#{ROOT}/socky/logger"
+  autoload :Message,     "#{ROOT}/socky/message"
   autoload :Misc,        "#{ROOT}/socky/misc"
   autoload :WebSocket,   "#{ROOT}/socky/websocket"
 end
