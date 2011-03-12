@@ -20,6 +20,10 @@ module Socky
     
       def event; @data['event']; end
       def channel; @data['channel'].to_s; end
+      def auth; @data['auth']; end
+      def read; @data['read']; end
+      def write; @data['write']; end
+      def hide; @data['hide']; end
     
     end
   end
