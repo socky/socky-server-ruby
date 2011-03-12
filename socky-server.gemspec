@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Socky is a WebSocket server and client for Ruby}
   s.description = %q{Socky is a WebSocket server and client for Ruby}
   
-  s.add_dependency 'websocket-rack', ">= 0.1.3.1"
+  s.add_dependency 'websocket-rack', ">= 0.1.4"
   s.add_dependency 'json'
   s.add_development_dependency 'rspec', '~> 2.0'
 
