@@ -42,6 +42,7 @@ module Socky
       
       def subscribe_successful(connection)
         connection.send_data('event' => 'socky_internal:subscribe:success', 'channel' => self.name)
+        connection.channels[self.name] = self
       end
       
       def subscribe_failed(connection)
@@ -50,6 +51,7 @@ module Socky
       
       def unsubscribe_successful(connection)
         connection.send_data('event' => 'socky_internal:unsubscribe:success', 'channel' => self.name)
+        connection.channels.delete(self.name)
       end
       
       def unsubscribe_failed(connection)

@@ -28,6 +28,11 @@ module Socky
       end
     end
     
+    # list of channels connection is subscribed to
+    def channels
+      @channels ||= {}
+    end
+    
     # send data to connection
     # @param [String] data data to send
     def send_data(data)
@@ -39,6 +44,9 @@ module Socky
       if @application
         @application.remove_connection(self)
         @application = nil
+      end
+      self.channels.values.each do |channel|
+        channel.remove_connection(self)
       end
     end
     
