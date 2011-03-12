@@ -22,7 +22,7 @@ module Socky
     # otherwise it will return reson why connecton has failed
     def initialization_status
       if @application && @id
-        { 'event' => 'socky:connection_established', 'connection_id' => @id }
+        { 'event' => 'socky:connection:established', 'connection_id' => @id }
       else
         { 'event' => 'socky:error:unknow_application' }
       end
