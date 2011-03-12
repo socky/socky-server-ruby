@@ -8,11 +8,13 @@ module Socky
     def initialize(socket)
       @socket = socket
       @application = Application.find(socket.env)
-      return if @application.nil?
       
-      @id = self.generate_id
+      unless @application.nil?
+        @id = self.generate_id
+        @application.add_connection(self)
+      end
       
-      @application.add_connection(self)
+      self.send_data(initialization_status)
     end
     
     # return info about connection initialization
@@ -24,6 +26,12 @@ module Socky
       else
         { 'event' => 'socky:error:unknow_application' }
       end
+    end
+    
+    # send data to connection
+    # @param [String] data data to send
+    def send_data(data)
+      @socket.send_data(data)
     end
     
     # remove connection from application

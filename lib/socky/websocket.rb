@@ -15,7 +15,6 @@ module Socky
     # Called when connection is opened
     def on_open
       @connection = Socky::Connection.new(self)
-      send_data @connection.initialization_status
     end
     
     # Called when message is received
