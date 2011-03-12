@@ -23,10 +23,6 @@ map '/websocket' do
   run Socky::WebSocket.new :debug => true
 end
 
-map '/http' do
-  run Socky::HTTP.new
-end
-
 map '/' do
   run app
 end
