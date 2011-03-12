@@ -4,6 +4,7 @@ module Socky
       ROOT = File.expand_path(File.dirname(__FILE__))
 
       autoload :Base,     "#{ROOT}/channel/base"
+      autoload :Presence, "#{ROOT}/channel/presence"
       autoload :Private,  "#{ROOT}/channel/private"
       autoload :Public,   "#{ROOT}/channel/public"
       autoload :Stub,     "#{ROOT}/channel/stub"
@@ -16,9 +17,10 @@ module Socky
       
         channel_type = case channel_name.match(/\A\w+/).to_s
           when 'private' then Private
+          when 'presence' then Presence
           else Public
         end
-      
+        
         channel_type.find_or_create(channel_name)
       end
 

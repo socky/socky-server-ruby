@@ -29,6 +29,16 @@ module Socky
           @connections ||= {}
         end
         
+        def add_connection(connection)
+          self.connections[connection.id] = connection
+          connection.channels[self.name] = self
+        end
+      
+        def remove_connection(connection)
+          self.connections.delete(connection.id)
+          connection.channels.delete(self.name)
+        end
+        
         protected
       
         def subscribe_successful(connection)
@@ -47,16 +57,6 @@ module Socky
       
         def unsubscribe_failed(connection)
           connection.send_data('event' => 'socky_internal:unsubscribe:failure', 'channel' => self.name)
-        end
-        
-        def add_connection(connection)
-          self.connections[connection.id] = connection
-          connection.channels[self.name] = self
-        end
-      
-        def remove_connection(connection)
-          self.connections.delete(connection.id)
-          connection.channels.delete(self.name)
         end
 
       end
