@@ -2,6 +2,16 @@ module Socky
   module Server
     class Channel
       class Presence < Private
+        
+        def add_subscriber(connection, subscriber_data = nil)
+          self.send_data('event' => 'socky_internal:member:added', 'connection_id' => connection.id, 'channel' => self.name, 'data' => subscriber_data)
+          super
+        end
+      
+        def remove_subscriber(connection)
+          self.send_data('event' => 'socky_internal:member:removed', 'connection_id' => connection.id, 'channel' => self.name)
+          super
+        end
                 
         protected
         

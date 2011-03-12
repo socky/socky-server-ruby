@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "socky"
+require "socky/server"
 
 Gem::Specification.new do |s|
   s.name        = "socky"
-  s.version     = Socky::VERSION
+  s.version     = Socky::Server::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bernard Potocki"]
   s.email       = ["bernard.potocki@imanel.org"]
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Socky is a WebSocket server and client for Ruby}
   s.description = %q{Socky is a WebSocket server and client for Ruby}
   
-  s.add_dependency 'websocket-rack', ">= 0.1.3"
+  s.add_dependency 'websocket-rack', ">= 0.1.3.1"
   s.add_dependency 'json'
   s.add_development_dependency 'rspec', '~> 2.0'
 

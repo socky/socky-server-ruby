@@ -29,6 +29,10 @@ module Socky
           @subscribers ||= {}
         end
         
+        def send_data(data)
+          self.subscribers.each { |subscriber_id, subscriber| subscriber['connection'].send_data(data) }
+        end
+        
         def add_subscriber(connection, subscriber_data = nil)
           self.subscribers[connection.id] = { 'connection' => connection, 'data' => subscriber_data }
           connection.channels[self.name] = self
