@@ -4,11 +4,29 @@ module Socky
       class Public < Base
       
         def subscribe(connection, message)
-          self.add_connection(connection)
+          if self.check_auth(connection, message)
+            self.subscribe_successful(connection)
+          else
+            self.subscribe_failed(connection)
+          end
         end
         
         def unsubscribe(connection, message)
-          self.remove_connection(connection)
+          if self.connected?(connection)
+            unsubscribe_successful(connection)
+          else
+            unsubscribe_failed(connection)
+          end
+        end
+        
+        protected
+        
+        def connected?(connection)
+          !!self.connections[connection.id]
+        end
+        
+        def check_auth(connection, message)
+          true
         end
 
       end

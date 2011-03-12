@@ -3,20 +3,8 @@ require File.expand_path(File.dirname(__FILE__)) + '/../../../../../socky-authen
 module Socky
   module Server
     class Channel
-      class Private < Base
-        
-        def subscribe(connection, message)
-          if check_auth(connection, message)
-            self.add_connection(connection)
-          else
-            self.subscribe_failed(connection)
-          end
-        end
-        
-        def unsubscribe(connection, message)
-          self.remove_connection(connection)
-        end
-        
+      class Private < Public
+                
         protected
         
         def check_auth(connection, message)
