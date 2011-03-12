@@ -12,6 +12,7 @@ module Socky
       def dispath
         case self.event
           when 'socky:subscribe' then Channel[self.channel].subscribe(@connection, self)
+          when 'socky:unsubscribe' then Channel[self.channel].unsubscribe(@connection, self)
         end
       end
     
