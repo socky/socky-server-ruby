@@ -1,4 +1,4 @@
 require 'rubygems'
 require 'rspec'
 
-require 'socky'
+require 'socky/server'
