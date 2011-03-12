@@ -5,7 +5,7 @@ module Socky
       
         def subscribe(connection, message)
           if self.check_auth(connection, message)
-            self.subscribe_successful(connection)
+            self.subscribe_successful(connection, message)
           else
             self.subscribe_failed(connection)
           end

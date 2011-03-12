@@ -1,6 +1,7 @@
 module Socky
   module Server
     class Connection
+      include Misc
     
       attr_accessor :id, :application
     
@@ -42,12 +43,13 @@ module Socky
     
       # remove connection from application
       def destroy
+        log('connection closing', @id)
         if @application
           @application.remove_connection(self)
           @application = nil
         end
         self.channels.values.each do |channel|
-          channel.remove_connection(self)
+          channel.remove_subscriber(self)
         end
       end
     
