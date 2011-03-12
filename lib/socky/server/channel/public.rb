@@ -22,7 +22,7 @@ module Socky
         protected
         
         def connected?(connection)
-          !!self.connections[connection.id]
+          !!self.subscribers[connection.id]
         end
         
         def check_auth(connection, message)

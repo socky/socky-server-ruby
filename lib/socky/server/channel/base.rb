@@ -25,24 +25,24 @@ module Socky
           @name = name
         end
       
-        def connections
-          @connections ||= {}
+        def subscribers
+          @subscribers ||= {}
         end
         
-        def add_connection(connection)
-          self.connections[connection.id] = connection
+        def add_subscribers(connection)
+          self.subscribers[connection.id] = connection
           connection.channels[self.name] = self
         end
       
-        def remove_connection(connection)
-          self.connections.delete(connection.id)
+        def remove_subscribers(connection)
+          self.subscribers.delete(connection.id)
           connection.channels.delete(self.name)
         end
         
         protected
       
         def subscribe_successful(connection)
-          self.add_connection(connection)
+          self.add_subscribers(connection)
           connection.send_data('event' => 'socky_internal:subscribe:success', 'channel' => self.name)
         end
       
@@ -51,7 +51,7 @@ module Socky
         end
       
         def unsubscribe_successful(connection)
-          self.remove_connection(connection)
+          self.remove_subscribers(connection)
           connection.send_data('event' => 'socky_internal:unsubscribe:success', 'channel' => self.name)
         end
       
