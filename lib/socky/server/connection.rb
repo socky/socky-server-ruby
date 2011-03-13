@@ -6,7 +6,7 @@ module Socky
       attr_accessor :id, :application
     
       # initialize new connection
-      # @param [Socky::WebSocket] socket connection Rack env
+      # @param [Socky::Server::WebSocket] socket connection Rack env
       def initialize(socket)
         @socket = socket
         app_name = socket.env['PATH_INFO'].split('/').last
