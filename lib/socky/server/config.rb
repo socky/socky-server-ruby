@@ -5,6 +5,11 @@ module Socky
       # Each config key calls corresponding method with value as param
       def initialize(config = {})
         return unless config.is_a?(Hash)
+        
+        # Config file should be readed first
+        file = config.delete(:config_file)
+        self.config_file(file) unless file.nil?
+        
         config.each { |key, value| self.send(key, value) if self.respond_to?(key) }
       end
       
@@ -25,6 +30,18 @@ module Socky
         end
       end
       
+      def config_file(path)
+        raise ArgumentError, 'expected String' unless path.is_a?(String)
+        raise ArgumentError, "config file not found: #{path}" unless File.exists?(path)
+        
+        begin
+          config = YAML.load_file(path)
+        rescue
+          raise ArgumentError, 'invalid config file'
+        end
+        
+        Config.new(config)
+      end
     end
   end
 end

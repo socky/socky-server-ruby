@@ -1,0 +1,4 @@
+debug: false
+
+applications:
+  my_app: my_secret
