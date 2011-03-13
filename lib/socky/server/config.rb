@@ -30,6 +30,9 @@ module Socky
         end
       end
       
+      # Reads config file
+      # This should be evaluated before other methods to prevent
+      # overriding settings by config ones(config should have lower priority)
       def config_file(path)
         raise ArgumentError, 'expected String' unless path.is_a?(String)
         raise ArgumentError, "config file not found: #{path}" unless File.exists?(path)

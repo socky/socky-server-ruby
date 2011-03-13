@@ -1,0 +1,3 @@
+debug: true
+applications:
+  some_test_app: some_test_secret
