@@ -26,7 +26,7 @@ module Socky
       def initialize(name, secret)
         @name = name
         @secret = secret
-        self.class.list[name] = self
+        self.class.list[name] ||= self
       end
     
       # list of all connections for this application
