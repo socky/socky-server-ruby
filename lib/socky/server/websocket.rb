@@ -9,8 +9,8 @@ module Socky
     
       def initialize(*args)
         super
-      
-        Logger.enabled = @options[:debug]
+        
+        Config.new(@options)
       end
     
       # Called when connection is opened
