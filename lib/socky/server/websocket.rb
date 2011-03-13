@@ -11,7 +11,6 @@ module Socky
         super
         
         Config.new(@options)
-        puts Application.list.inspect
       end
     
       # Called when connection is opened
