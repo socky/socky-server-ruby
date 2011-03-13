@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Socky
   module Server
     class Config
