@@ -9,7 +9,8 @@ module Socky
       # @param [Socky::WebSocket] socket connection Rack env
       def initialize(socket)
         @socket = socket
-        @application = Application.find(socket.env)
+        app_name = socket.env['PATH_INFO'].split('/').last
+        @application = Application.find(app_name)
       
         unless @application.nil?
           @id = self.generate_id

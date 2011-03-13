@@ -11,11 +11,10 @@ module Socky
           @list ||= {}
         end
       
-        # find application from Rack env
-        # @param [Hash] env rack env
+        # find application by name
+        # @param [String] name name of application
         # @return [Application] found application or nil
-        def find(env)
-          name = env['PATH_INFO'].split('/').last
+        def find(name)
           list[name]
         end
       end
@@ -32,7 +31,7 @@ module Socky
       # list of all connections for this application
       # @return [Hash] hash of all connections
       def connections
-        @connections || {}
+        @connections ||= {}
       end
     
       # add new connection to application
