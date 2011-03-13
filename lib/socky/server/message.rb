@@ -6,7 +6,8 @@ module Socky
       def initialize(connection, data)
         @connection = connection
         @data = JSON.parse(data) rescue nil
-        self.dispath if @data.is_a?(Hash)  
+        @data ||= {}
+        self.dispath
       end
     
       def dispath
