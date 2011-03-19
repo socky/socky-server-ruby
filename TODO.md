@@ -6,5 +6,4 @@
 - checking format of events/channel names
 - [SPEC] skipping connection id when sending
 - [SPEC] return reason why connection/subscription failed
-- [SPEC] allow anybody to trigger 'user-*' events
 - [SPEC] global channel(write only)
