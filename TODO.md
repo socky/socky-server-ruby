@@ -7,3 +7,4 @@
 
 - tests
   - integration of sending messages
+  - integration of rights
