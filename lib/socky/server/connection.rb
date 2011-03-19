@@ -18,6 +18,7 @@ module Socky
         end
       
         self.send_data(initialization_status)
+        @socket.close_websocket if @application.nil?
       end
     
       # return info about connection initialization

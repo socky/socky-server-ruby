@@ -6,6 +6,8 @@ module Socky
       DEFAULT_OPTIONS = {
         :debug => false
       }
+      
+      attr_reader :connection
     
       def initialize(*args)
         super

@@ -1,0 +1,48 @@
+require 'spec_helper'
+
+describe 'WebSocket Connection' do
+  
+  before { @application = Socky::Server::Application.new('test_application', 'test_secret')}
+  after  { Socky::Server::Application.list.delete('test_application') }
+  
+  context 'Valid application' do
+    subject { mock_connection(@application.name) }
+    
+    it "should receive confirmation on connection" do
+      subject.should_receive(:send_data).with(hash_including( 'event' => 'socky:connection:established' ))
+      subject.on_open
+    end
+        
+    it "should generate connection" do
+      subject.on_open
+      subject.connection.should_not be_nil
+      subject.connection.class.should eql(Socky::Server::Connection)
+    end
+    
+    it "should not close connection" do
+      subject.should_not_receive(:on_close)
+      subject.on_open
+    end
+  end
+  
+  context "Invalid application" do
+    subject { mock_connection('invalid_name') }
+    
+    it "should receive 'application invalid' error" do
+      subject.should_receive(:send_data).with({ 'event' => 'socky:error:unknow_application' })
+      subject.on_open
+    end
+        
+    it "should generate connection" do
+      subject.on_open
+      subject.connection.should_not be_nil
+      subject.connection.class.should eql(Socky::Server::Connection)
+    end
+    
+    it "should close connection" do
+      subject.should_receive(:on_close)
+      subject.on_open
+    end
+  end
+  
+end

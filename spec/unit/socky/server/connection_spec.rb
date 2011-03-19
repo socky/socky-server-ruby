@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Socky::Server::Connection do
   
-  let(:websocket) { mock(Socky::Server::WebSocket, :send_data => nil, :env => {'PATH_INFO' => '/websocket/test_app'}) }
+  let(:websocket) { mock_connection('test_app') }
   before { @application = Socky::Server::Application.new('test_app', 'test_secret') }
   after  { Socky::Server::Application.list.delete(@application.name) }
   
