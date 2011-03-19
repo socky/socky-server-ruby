@@ -1,5 +1,3 @@
-require File.expand_path(File.dirname(__FILE__)) + '/../../../../../socky-authenticator-ruby/lib/socky/authenticator'
-
 module Socky
   module Server
     class Channel

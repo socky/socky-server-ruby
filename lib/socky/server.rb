@@ -1,6 +1,7 @@
 require 'rubygems'
-require 'rack/websocket'
 require 'json'
+require 'rack/websocket'
+require 'socky/authenticator'
 
 # Socky is a WebSocket server and client for Ruby
 # @author Bernard "Imanel" Potocki
