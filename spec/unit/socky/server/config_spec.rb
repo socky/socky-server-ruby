@@ -44,7 +44,7 @@ describe Socky::Server::Config do
     it "should read example config file and set attributes" do
       Socky::Server::Logger.should_receive(:enabled=).with(true)
       Socky::Server::Application.should_receive(:new).with('some_test_app','some_test_secret')
-      described_class.new(:config_file => File.expand_path(File.dirname(__FILE__)) + '/../../fixtures/example_config.yml')
+      described_class.new(:config_file => File.expand_path(File.dirname(__FILE__)) + '/../../../fixtures/example_config.yml')
     end
   end
 end
