@@ -9,10 +9,21 @@ describe 'WebSocket Presence notification' do
   before  { subject.on_open; subject.connection.id = "1234567890" }
   after   { subject.on_close }
   let(:channel_name) { 'presence-test_channel' }
-    
-  it "should return empty list if no other users are on channel" do
-    subject.should_receive(:send_data).with({ 'event' => 'socky_internal:subscribe:success', 'channel' => channel_name, 'members' => [] })
-    subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+  
+  context 'no other users on the same channel' do
+    it "should return empty list if no other users are on channel" do
+      subject.should_receive(:send_data).with({ 'event' => 'socky_internal:subscribe:success', 'channel' => channel_name, 'members' => [] })
+      subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+    end
+    it "should not receive notification about own joining to channel" do
+      subject.should_not_receive(:send_data).with(hash_including('event' => 'socky_internal:member:added'))
+      subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+    end
+    it "should not receive notification about own disconnection from channel" do
+      subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+      subject.should_not_receive(:send_data).with(hash_including('event' => 'socky_internal:member:removed'))
+      subject.on_message({ 'event' => 'socky:unsubscribe', 'channel' => channel_name }.to_json)
+    end
   end
   
   context 'other user on the same channel' do

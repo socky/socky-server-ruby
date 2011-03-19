@@ -23,6 +23,18 @@ describe 'WebSocket Channels' do
         subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name }.to_json)
         subject.connection.channels[channel_name].should_not be_nil
       end
+      
+      it "should allow unsubscribing from channel" do
+        subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name }.to_json)
+        subject.should_receive(:send_data).with({ 'event' => 'socky_internal:unsubscribe:success', 'channel' => channel_name })
+        subject.on_message({ 'event' => 'socky:unsubscribe', 'channel' => channel_name }.to_json)
+      end
+      
+      it "should not have channel on his list after unsubscribing" do
+        subject.on_message({ 'event' => 'socky:subscribe', 'channel' => channel_name }.to_json)
+        subject.on_message({ 'event' => 'socky:unsubscribe', 'channel' => channel_name }.to_json)
+        subject.connection.channels[channel_name].should be_nil
+      end
     end
     
     context "private channel" do
