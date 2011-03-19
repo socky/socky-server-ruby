@@ -29,8 +29,8 @@ module Socky
           @subscribers ||= {}
         end
         
-        def send_data(data)
-          self.subscribers.each { |subscriber_id, subscriber| subscriber['connection'].send_data(data) }
+        def send_data(data, except = nil)
+          self.subscribers.each { |subscriber_id, subscriber| subscriber['connection'].send_data(data) unless subscriber_id == except }
         end
         
         def add_subscriber(connection, subscriber_data = nil)

@@ -4,12 +4,12 @@ module Socky
       class Presence < Private
         
         def add_subscriber(connection, subscriber_data = nil)
-          self.send_data('event' => 'socky_internal:member:added', 'connection_id' => connection.id, 'channel' => self.name, 'data' => subscriber_data)
+          self.send_data({ 'event' => 'socky_internal:member:added', 'connection_id' => connection.id, 'channel' => self.name, 'data' => subscriber_data }, connection.id)
           super
         end
       
         def remove_subscriber(connection)
-          self.send_data('event' => 'socky_internal:member:removed', 'connection_id' => connection.id, 'channel' => self.name)
+          self.send_data({ 'event' => 'socky_internal:member:removed', 'connection_id' => connection.id, 'channel' => self.name }, connection.id)
           super
         end
                 
