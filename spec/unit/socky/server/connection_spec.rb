@@ -8,30 +8,29 @@ describe Socky::Server::Connection do
   
   context "#new" do
     it "should assign valid application" do
-      instance = described_class.new(websocket)
+      instance = described_class.new(websocket, @application.name)
       instance.application.should eql(@application)
     end
     it "should not assign application if not known" do
-      websocket.stub!(:env).and_return({'PATH_INFO' => '/websocket/unknown_app'})
-      instance = described_class.new(websocket)
+      instance = described_class.new(websocket, 'unknown_app')
       instance.application.should eql(nil)
     end
     it "should assign id" do
-      instance = described_class.new(websocket)
+      instance = described_class.new(websocket, @application.name)
       instance.id.should_not be_nil
     end
     it "should add itself to application connection list" do
-      instance = described_class.new(websocket)
+      instance = described_class.new(websocket, @application.name)
       @application.connections[instance.id].should equal(instance)
     end
     it "should send initialiation status" do
       websocket.should_receive(:send_data)
-      instance = described_class.new(websocket)
+      instance = described_class.new(websocket, @application.name)
     end
   end
   
   context "instance" do
-    subject { described_class.new(websocket) }
+    subject { described_class.new(websocket, @application.name) }
     
     its(:channels) { should eql({}) }
     

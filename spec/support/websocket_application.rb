@@ -5,6 +5,6 @@ Rack::WebSocket::Application.class_eval do
   end
   
   def close_websocket
-    on_close
+    on_close(@env)
   end
 end
