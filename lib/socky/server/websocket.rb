@@ -16,24 +16,20 @@ module Socky
       end
     
       # Called when connection is opened
-      def on_open
-        @connection = Connection.new(self)
+      def on_open(env)
+        app_name = env['PATH_INFO'].split('/').last
+        @connection = Connection.new(self, app_name)
       end
     
       # Called when message is received
-      def on_message(msg)
+      def on_message(env, msg)
         log("received", msg)
         Message.new(@connection, msg)
       end
     
       # Called when client closes clonnecton
-      def on_close
+      def on_close(env)
         @connection.destroy if @connection
-      end
-    
-      # Rack env
-      def env
-        @env
       end
     
       # Send JSON-encoded data instead of clear text

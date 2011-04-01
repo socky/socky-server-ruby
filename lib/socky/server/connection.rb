@@ -6,10 +6,10 @@ module Socky
       attr_accessor :id, :application
     
       # initialize new connection
-      # @param [Socky::Server::WebSocket] socket connection Rack env
-      def initialize(socket)
+      # @param [Socky::Server::WebSocket] socket websocket connection
+      # @param [String] app_name connection application name
+      def initialize(socket, app_name)
         @socket = socket
-        app_name = socket.env['PATH_INFO'].split('/').last
         @application = Application.find(app_name)
       
         unless @application.nil?
