@@ -28,7 +28,7 @@ module Socky
         if @application && @id
           { 'event' => 'socky:connection:established', 'connection_id' => @id }
         else
-          { 'event' => 'socky:error:unknow_application' }
+          { 'event' => 'socky:connection:error', 'reason' => 'refused' }
         end
       end
     
