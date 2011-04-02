@@ -47,20 +47,20 @@ module Socky
       
         def subscribe_successful(connection, message)
           self.add_subscriber(connection)
-          connection.send_data('event' => 'socky_internal:subscribe:success', 'channel' => self.name)
+          connection.send_data('event' => 'socky:subscribe:success', 'channel' => self.name)
         end
       
         def subscribe_failed(connection)
-          connection.send_data('event' => 'socky_internal:subscribe:failure', 'channel' => self.name)
+          connection.send_data('event' => 'socky:subscribe:failure', 'channel' => self.name)
         end
       
         def unsubscribe_successful(connection)
           self.remove_subscriber(connection)
-          connection.send_data('event' => 'socky_internal:unsubscribe:success', 'channel' => self.name)
+          connection.send_data('event' => 'socky:unsubscribe:success', 'channel' => self.name)
         end
       
         def unsubscribe_failed(connection)
-          connection.send_data('event' => 'socky_internal:unsubscribe:failure', 'channel' => self.name)
+          connection.send_data('event' => 'socky:unsubscribe:failure', 'channel' => self.name)
         end
 
       end
