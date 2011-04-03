@@ -3,8 +3,8 @@ module Socky
     class Channel
       class Presence < Private
         
-        def add_subscriber(connection, subscriber_data = nil)
-          self.send_data({ 'event' => 'socky:member:added', 'connection_id' => connection.id, 'channel' => self.name, 'data' => subscriber_data }, connection.id)
+        def add_subscriber(connection, message, subscriber_data = nil)
+          self.send_data({ 'event' => 'socky:member:added', 'connection_id' => connection.id, 'channel' => self.name, 'data' => subscriber_data }, connection.id) unless rights(message)['hide']
           super
         end
       
@@ -19,7 +19,7 @@ module Socky
           user_data = JSON.parse(message.user_data) rescue nil
           user_data = {} unless user_data.is_a?(Hash)
           
-          self.add_subscriber(connection, user_data)
+          self.add_subscriber(connection, message, user_data)
           connection.send_data('event' => 'socky:subscribe:success', 'channel' => self.name, 'members' => member_list(connection))
         end
         
@@ -34,8 +34,13 @@ module Socky
         def hash_from_message(connection, message)
           hash = super
           hash.merge!('data' => message.user_data)
-          hash.merge!('hide' => message.hide) unless message.hide.nil?
           hash
+        end
+        
+        def rights(message)
+          r = super
+          r.merge!( 'hide' => !!message.hide ) unless message.hide.nil?
+          r
         end
 
       end

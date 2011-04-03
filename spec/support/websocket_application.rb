@@ -4,6 +4,10 @@ Rack::WebSocket::Application.class_eval do
     return self
   end
   
+  def send_data(data)
+    true
+  end
+  
   def close_websocket
     on_close(@env)
   end

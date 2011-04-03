@@ -34,11 +34,13 @@ module Socky
         end
         
         def send_data(data, except = nil)
-          self.subscribers.each { |subscriber_id, subscriber| subscriber['connection'].send_data(data) unless subscriber_id == except }
+          self.subscribers.each do |subscriber_id, subscriber|
+            subscriber['connection'].send_data(data) unless subscriber_id == except || !subscriber['read']
+          end
         end
         
-        def add_subscriber(connection, subscriber_data = nil)
-          self.subscribers[connection.id] = { 'connection' => connection, 'data' => subscriber_data }
+        def add_subscriber(connection, message, subscriber_data = nil)
+          self.subscribers[connection.id] = { 'connection' => connection, 'data' => subscriber_data }.merge( rights(message) )
           connection.channels[self.name] = self
         end
       
@@ -50,7 +52,7 @@ module Socky
         protected
       
         def subscribe_successful(connection, message)
-          self.add_subscriber(connection)
+          self.add_subscriber(connection, message)
           connection.send_data('event' => 'socky:subscribe:success', 'channel' => self.name)
         end
       

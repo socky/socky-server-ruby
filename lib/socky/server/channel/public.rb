@@ -28,6 +28,14 @@ module Socky
         def check_auth(connection, message)
           true
         end
+        
+        def rights(message)
+          {
+            'read' =>  true,
+            'write' => false,
+            'hide' =>  false
+          }
+        end
 
       end
     end

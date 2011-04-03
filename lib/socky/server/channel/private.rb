@@ -27,9 +27,15 @@ module Socky
             'connection_id' => connection.id,
             'channel' => message.channel
           }
-          hash.merge!('read' => message.read) unless message.read.nil?
-          hash.merge!('write' => message.write) unless message.write.nil?
+          hash.merge!( rights(message) )
           hash
+        end
+        
+        def rights(message)
+          r = super
+          r.merge!( 'read' => !!message.read ) unless message.read.nil?
+          r.merge!( 'write' => !!message.write ) unless message.write.nil?
+          r
         end
 
       end
