@@ -49,6 +49,11 @@ module Socky
           connection.channels.delete(self.name)
         end
         
+        def deliver(connection, message)
+          return unless subscribers[connection.id] && subscribers[connection.id]['write']
+          send_data({ 'event' => message.event, 'channel' => self.name, 'data' => message.user_data })
+        end
+        
         protected
       
         def subscribe_successful(connection, message)

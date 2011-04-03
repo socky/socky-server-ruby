@@ -4,7 +4,7 @@ describe Socky::Server::Message do
   
   let(:application) { Socky::Server::Application.new('some_app', 'some_secret') }
   let(:connection) { mock_connection(application.name) }
-  let(:channel) { mock(Socky::Server::Channel::Base, :subscribe => nil, :unsubscribe => nil) }
+  let(:channel) { mock(Socky::Server::Channel::Base, :subscribe => nil, :unsubscribe => nil, :deliver => nil) }
   before { Socky::Server::Channel.stub!(:find_or_create).and_return(channel)}
   
   context "#new" do
@@ -14,7 +14,7 @@ describe Socky::Server::Message do
     end
     it "should get empty instance when non-json provided" do
       instance = described_class.new(connection, 'event=some_event')
-      instance.event.should be_nil
+      instance.event.should eql('')
     end
   end
   
@@ -46,6 +46,16 @@ describe Socky::Server::Message do
       it "should call channel.unsubscribe when 'socky:unsubscribe' event received" do
         subject.instance_variable_get('@data')['event'] = 'socky:unsubscribe'
         channel.should_receive(:unsubscribe).with(connection, subject)
+        subject.dispath
+      end
+      it "should call channel.deliver when normal event received" do
+        subject.instance_variable_get('@data')['event'] = 'some_event'
+        channel.should_receive(:deliver).with(connection, subject)
+        subject.dispath
+      end
+      it "should not call channel.deliver when unknown socky event received" do
+        subject.instance_variable_get('@data')['event'] = 'socky:unknown'
+        channel.should_not_receive(:deliver).with(connection, subject)
         subject.dispath
       end
     end
