@@ -29,7 +29,7 @@ describe 'WebSocket Connection' do
     subject { mock_connection('invalid_name') }
     
     it "should receive 'application invalid' error" do
-      subject.should_receive(:send_data).with({ 'event' => 'socky:error:unknow_application' })
+      subject.should_receive(:send_data).with({ 'event' => 'socky:connection:error', 'reason' => 'refused' })
       subject.on_open({'PATH_INFO' => 'invalid_name'})
     end
         

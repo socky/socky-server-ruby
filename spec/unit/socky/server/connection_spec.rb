@@ -40,7 +40,7 @@ describe Socky::Server::Connection do
       end
       it "should return 'unknown app' when application is not set" do
         subject.application = nil
-        subject.initialization_status.should eql({ 'event' => 'socky:error:unknow_application' })
+        subject.initialization_status.should eql({ 'event' => 'socky:connection:error', 'reason' => 'refused' })
       end
     end
     
