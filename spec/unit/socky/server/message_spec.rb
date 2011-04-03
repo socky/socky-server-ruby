@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Socky::Server::Message do
   
-  let(:connection) { mock(Socky::Server::Connection) }
+  let(:application) { Socky::Server::Application.new('some_app', 'some_secret') }
+  let(:connection) { mock_connection(application.name) }
   let(:channel) { mock(Socky::Server::Channel::Base, :subscribe => nil, :unsubscribe => nil) }
-  before { Socky::Server::Channel.stub!(:[]).and_return(channel)}
+  before { Socky::Server::Channel.stub!(:find_or_create).and_return(channel)}
   
   context "#new" do
     it "should get valid instance when json provided" do

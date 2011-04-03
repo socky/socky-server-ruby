@@ -6,7 +6,7 @@ describe 'WebSocket Channels' do
   after  { Socky::Server::Application.list.delete('test_application') }
   
   context "connected to application" do
-    subject { mock_connection(@application.name) }
+    subject { mock_websocket(@application.name) }
     before  { subject.on_open({'PATH_INFO' => @application.name}); subject.connection.id = "1234567890" }
     after   { subject.on_close({}) }
     

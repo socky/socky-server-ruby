@@ -6,7 +6,7 @@ describe 'WebSocket Connection' do
   after  { Socky::Server::Application.list.delete('test_application') }
   
   context 'Valid application' do
-    subject { mock_connection(@application.name) }
+    subject { mock_websocket(@application.name) }
     
     it "should receive confirmation on connection" do
       subject.should_receive(:send_data).with(hash_including( 'event' => 'socky:connection:established' ))
@@ -26,7 +26,7 @@ describe 'WebSocket Connection' do
   end
   
   context "Invalid application" do
-    subject { mock_connection('invalid_name') }
+    subject { mock_websocket('invalid_name') }
     
     it "should receive 'application invalid' error" do
       subject.should_receive(:send_data).with({ 'event' => 'socky:connection:error', 'reason' => 'refused' })

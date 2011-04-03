@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Socky::Server::Connection do
   
-  let(:websocket) { mock_connection('test_app') }
+  let(:websocket) { mock_websocket('test_app') }
   before { @application = Socky::Server::Application.new('test_app', 'test_secret') }
   after  { Socky::Server::Application.list.delete(@application.name) }
   
@@ -55,7 +55,6 @@ describe Socky::Server::Connection do
         @application.connections[subject.id].should be_nil
       end
       it "should remove itself from channels list" do
-        pending('Wait for channel reimplementation')
         channels = subject.channels.dup
         subject.destroy
         channels.each do |channel|

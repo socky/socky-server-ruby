@@ -3,26 +3,30 @@ module Socky
     class Channel
       class Base
       
-        attr_accessor :name
+        attr_accessor :application, :name
       
         class << self
           # List of all already registered channels of current type
+          # namespaces by application name
           def list
-            @list ||= {}
+            @list ||= Hash.new{ |hash, key| hash[key] = Hash.new }
           end
         
           # Find channel or create new
-          # @param [String] name name for channel
+          # @param [String] application_name name of application
+          # @param [String] channel_name name for channel
           # @return [Base] channel instance
-          def find_or_create(name)
-            self.list[name] ||= self.new(name)
+          def find_or_create(application_name, channel_name)
+            self.list[application_name][channel_name] ||= self.new(application_name, channel_name)
           end
         end
       
         # Initialize new channel
-        # @param [String] name name for channel
-        def initialize(name)
-          @name = name
+        # @param [String] application_name name of application
+        # @param [String] channel_name name for channel
+        def initialize(application_name, channel_name)
+          @application = Application.find(application_name)
+          @name = channel_name
         end
       
         def subscribers

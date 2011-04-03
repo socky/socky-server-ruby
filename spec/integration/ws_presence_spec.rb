@@ -5,7 +5,7 @@ describe 'WebSocket Presence notification' do
   before { @application = Socky::Server::Application.new('test_application', 'test_secret')}
   after  { Socky::Server::Application.list.delete(@application.name) }
   
-  subject { mock_connection(@application.name) }
+  subject { mock_websocket(@application.name) }
   before  { subject.on_open({'PATH_INFO' => @application.name}); subject.connection.id = "1234567890" }
   after   { subject.on_close({}) }
   let(:channel_name) { 'presence-test_channel' }
@@ -27,7 +27,7 @@ describe 'WebSocket Presence notification' do
   end
   
   context 'other user on the same channel' do
-    let(:other_user) { mock_connection(@application.name) }
+    let(:other_user) { mock_websocket(@application.name) }
     before do
       other_user.on_open({'PATH_INFO' => @application.name})
       other_user.connection.id = "123"
@@ -60,11 +60,10 @@ describe 'WebSocket Presence notification' do
   end
   
   context 'other user on other channel' do
-    let(:other_user) { mock_connection(@application.name) }
+    let(:other_user) { mock_websocket(@application.name) }
     before do
       other_user.on_open({'PATH_INFO' => @application.name})
       other_user.connection.id = "123"
-      # puts Socky::Authenticator.authenticate({'connection_id' => '123', 'channel' => 'presence-other_channel'}, false, 'test_secret').inspect
       other_user.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => 'presence-other_channel', 'members' => [] })
       other_user.on_message({}, { 'event' => 'socky:subscribe', 'channel' => 'presence-other_channel', 'auth' => '2f1df408b658c9f3b4aa5717a4e832bd:9df486124b4cd642e3ffb6958cb27582e8cc5c86850ea36e9503d9541d28bd72' }.to_json)
     end
@@ -91,10 +90,8 @@ describe 'WebSocket Presence notification' do
     before { @application2 = Socky::Server::Application.new('other_application', 'other_secret')}
     after  { Socky::Server::Application.list.delete(@application2.name) }
     
-    let(:other_user) { mock_connection(@application2.name) }
+    let(:other_user) { mock_websocket(@application2.name) }
     before do
-      pending "reimplement channels!"
-      
       other_user.on_open({'PATH_INFO' => @application2.name})
       other_user.connection.id = "123"
       other_user.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
