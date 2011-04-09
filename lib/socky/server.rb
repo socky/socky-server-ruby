@@ -8,7 +8,6 @@ require 'socky/authenticator'
 # @see http://github.com/socky/socky-server-ruby main repository
 module Socky
   module Server
-    VERSION = '0.5.0.pre'
     ROOT = File.expand_path(File.dirname(__FILE__))
   
     autoload :Application, "#{ROOT}/server/application"
