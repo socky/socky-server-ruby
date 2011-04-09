@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bernard Potocki"]
   s.email       = ["bernard.potocki@imanel.org"]
-  s.homepage    = "http://imanel.org/projects/socky"
+  s.homepage    = "http://socky.org"
   s.summary     = %q{Socky is a WebSocket server and client for Ruby}
   s.description = %q{Socky is a WebSocket server and client for Ruby}
   
