@@ -1,7 +1,18 @@
-Socky - server in Ruby
-===========
+# Socky - server in Ruby
 
 Socky is push server for Ruby based on WebSockets. It allows you to break border between your application and client browser by letting the server initialize a connection and push data to the client.
+
+## Running
+
+To use default config just run:
+
+    $ thin -R config.ru start
+
+You can also create your own rackup and config file to customize server.
+
+## Which Rack servers are currently supported?
+
+All that are supported by [websocket-rack](http://github.com/imanel/websocket-rack). At the time of writing only Thin was supported, but it should change in near future.
 
 ## License
 
