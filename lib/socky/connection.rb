@@ -29,7 +29,7 @@ module Socky
     # read query data from socket request
     # @return [Hash] hash of query data
     def query
-      socket.request["Query"] || {}
+      socket.request["query"] || {}
     end
 
     # return if user appear to be admin

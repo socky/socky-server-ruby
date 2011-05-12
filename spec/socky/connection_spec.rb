@@ -20,34 +20,34 @@ describe Socky::Connection do
   context "instance" do
     before(:each) do
       described_class.connections.clear
-      socket = mock(:socket, :request => { "Query" => {}})
+      socket = mock(:socket, :request => { "query" => {}})
       @connection = described_class.new(socket)
     end
     
     context "#admin" do
       it "should return true for socket request data admin equal to '1' and 'true'" do
         ["1","true"].each do |value|
-          @connection.socket.request["Query"]["admin"] = value
+          @connection.socket.request["query"]["admin"] = value
           @connection.admin.should be_true
         end
       end
       it "should return false for socket request data admin equal to anything except '1' and 'true'" do
         [nil,"0","false","abstract"].each do |value|
-          @connection.socket.request["Query"]["admin"] = value
+          @connection.socket.request["query"]["admin"] = value
           @connection.admin.should be_false
         end
       end
       it "should return false if socket request data is nil" do
-        @connection.socket.request["Query"] = nil
+        @connection.socket.request["query"] = nil
         @connection.admin.should be_false
       end
     end
     it "#client should return client_id from socket request data" do
-      @connection.socket.request["Query"]["client_id"] = "abstract"
+      @connection.socket.request["query"]["client_id"] = "abstract"
       @connection.client.should eql("abstract")
     end
     it "#secret should return client_secret from socket request data" do
-      @connection.socket.request["Query"]["client_secret"] = "abstract"
+      @connection.socket.request["query"]["client_secret"] = "abstract"
       @connection.secret.should eql("abstract")
     end
     context "#channels" do
@@ -56,19 +56,19 @@ describe Socky::Connection do
         @connection.channels.class.should eql(Array)
       end
       it "should return table with nil if socket request data 'channels' is nil" do
-        @connection.socket.request["Query"]["channels"] = nil
+        @connection.socket.request["query"]["channels"] = nil
         @connection.channels.should eql([nil])
       end
       it "should return table of channels if provided and separated by comma" do
-        @connection.socket.request["Query"]["channels"] = "aaa,bbb,ccc"
+        @connection.socket.request["query"]["channels"] = "aaa,bbb,ccc"
         @connection.channels.should eql(["aaa","bbb","ccc"])
       end
       it "should not allow empty names of channels" do
-        @connection.socket.request["Query"]["channels"] = "aaa,,ccc"
+        @connection.socket.request["query"]["channels"] = "aaa,,ccc"
         @connection.channels.should eql(["aaa","ccc"])
       end
       it "should strip trailing spaces in channel names" do
-        @connection.socket.request["Query"]["channels"] = "  aaa\n  , \n , ccc  "
+        @connection.socket.request["query"]["channels"] = "  aaa\n  , \n , ccc  "
         @connection.channels.should eql(["aaa","ccc"])
       end
     end
@@ -139,8 +139,8 @@ describe Socky::Connection do
       described_class.connections.should have(0).items
     end
     it "#to_json should return self as hash of object_id, client_id and channels" do
-      @connection.socket.request["Query"]["client_id"] = "abstract"
-      @connection.socket.request["Query"]["channels"] = "first,second,third"
+      @connection.socket.request["query"]["client_id"] = "abstract"
+      @connection.socket.request["query"]["channels"] = "first,second,third"
       json = @connection.to_json
       JSON.parse(json).should eql({ "id" => @connection.object_id,
                                     "client_id" => @connection.client,

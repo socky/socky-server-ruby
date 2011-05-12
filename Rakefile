@@ -18,7 +18,7 @@ begin
     gemspec.email = "bernard.potocki@imanel.org"
     gemspec.homepage = "http://imanel.org/projects/socky"
     gemspec.authors = ["Bernard Potocki"]
-    gemspec.add_dependency 'em-websocket', '>= 0.1.4'
+    gemspec.add_dependency 'em-websocket', '~> 0.3.0'
     gemspec.add_dependency 'em-http-request'
     gemspec.add_dependency 'json'
     gemspec.add_development_dependency 'rspec', '~> 2.0'
