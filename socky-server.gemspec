@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json'
   s.add_development_dependency 'rspec', '~> 2.0'
   s.add_development_dependency 'rack'
-  s.add_development_dependency 'mongrel', '1.2.0.pre2'
+  s.add_development_dependency 'mongrel'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
