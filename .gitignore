@@ -3,3 +3,4 @@ tmp/
 *.gem
 
 spec/files/socky.log
+Gemfile.lock

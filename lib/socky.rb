@@ -13,7 +13,7 @@ module Socky
   class SockyError < StandardError; end #:nodoc:
 
   # server version
-  VERSION = File.read(File.dirname(__FILE__) + '/../VERSION').strip
+  VERSION = '0.4.0'
 
   class << self
     # read server-wide options
