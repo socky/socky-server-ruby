@@ -13,7 +13,7 @@ module Socky
   class SockyError < StandardError; end #:nodoc:
 
   # server version
-  VERSION = '0.4.0'
+  VERSION = '0.4.1'
 
   class << self
     # read server-wide options

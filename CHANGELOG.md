@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1 / 2011-05-12
+
+- new features:
+  - none
+- bugfixes:
+  - restore compatibility with em-websocket 0.3.x
+
 ## 0.4.0 / 2010-10-27
 
 - new features:
