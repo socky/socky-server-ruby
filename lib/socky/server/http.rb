@@ -1,6 +1,8 @@
 module Socky
   module Server
     class HTTP
+      include Misc
+      
       class ConnectionError < RuntimeError; attr_accessor :status; end
       
       DEFAULT_OPTIONS = {
@@ -16,6 +18,7 @@ module Socky
       def call(env)
         request = Rack::Request.new(env.merge('CONTENT_TYPE' => nil))
         @params = request.params
+        log("received", @params)
         
         @app_name = request.path.split('/').last
         
@@ -26,14 +29,13 @@ module Socky
         check_auth
         
         channel = Channel.find_or_create(@app_name, @params['channel'])
-        puts Message.new(nil, @params).inspect
         channel.deliver(nil, Message.new(nil, @params))
         
         [202, {}, ['Event sent']]
       rescue ConnectionError => e
         [ e.status, {}, [e.message] ]
-      # rescue
-      #   [ 500, {}, ['Unknown error'] ]
+      rescue
+        [ 500, {}, ['Unknown error'] ]
       end
       
       private
