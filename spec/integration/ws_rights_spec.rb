@@ -17,6 +17,7 @@ describe 'WebSocket Rights' do
       other.connection.id = "1234567891"
       @other_user = other
     end
+    after { @other_user.on_close({}) if defined?(@other_user) }
     
     context "public channel" do
       let(:channel_name) { 'test_channel' }
