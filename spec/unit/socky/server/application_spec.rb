@@ -2,13 +2,6 @@ require 'spec_helper'
 
 describe Socky::Server::Application do
   
-  context "#list" do
-    it "should be empty hash at default" do
-      described_class.list.class.should eql(Hash)
-      described_class.list.keys.should be_empty
-    end
-  end
-  
   context "#find" do
     it "should return nil if provided application doesn't exists" do
       described_class.find('invalid').should be_nil
@@ -25,6 +18,7 @@ describe Socky::Server::Application do
   
   context "#new" do
     it "should save gived application on list" do
+      described_class.list.delete('some_app') # Strange bugs in ree
       instance = described_class.new('some_app', 'some_secret')
       described_class.list.delete('some_app').should equal(instance)
     end
