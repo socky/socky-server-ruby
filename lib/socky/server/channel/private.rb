@@ -10,7 +10,7 @@ module Socky
           
           hash = self.hash_from_message(connection, message)
           begin
-            auth = Socky::Authenticator.new(hash, true, self.application.secret)
+            auth = Socky::Authenticator.new(hash, :allow_changing_rights => true, :secret => self.application.secret)
             auth.salt = message.auth.split(':',2)[0]
             auth = auth.result
           rescue ArgumentError => e

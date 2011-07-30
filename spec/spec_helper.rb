@@ -23,5 +23,5 @@ def auth_token(socket, channel_name, remains = {})
   Socky::Authenticator.authenticate({
     'connection_id' => socket.connection.id,
     'channel' => channel_name
-  }.merge(remains), true, 'test_secret')['auth']
+  }.merge(remains), :allow_changing_rights => true, :secret => 'test_secret')['auth']
 end

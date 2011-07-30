@@ -24,7 +24,7 @@ module Socky
       # Called when message is received
       def on_message(env, msg)
         log("received", msg)
-        Message.new(@connection, msg)
+        Message.new(@connection, msg).dispath
       end
     
       # Called when client closes clonnecton

@@ -14,6 +14,7 @@ module Socky
     autoload :Channel,     "#{ROOT}/server/channel"
     autoload :Config,      "#{ROOT}/server/config"
     autoload :Connection,  "#{ROOT}/server/connection"
+    autoload :HTTP,        "#{ROOT}/server/http"
     autoload :Logger,      "#{ROOT}/server/logger"
     autoload :Message,     "#{ROOT}/server/message"
     autoload :Misc,        "#{ROOT}/server/misc"
