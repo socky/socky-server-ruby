@@ -12,7 +12,7 @@ module Socky
           self.send_data({ 'event' => 'socky:member:removed', 'connection_id' => connection.id, 'channel' => self.name }, connection.id)
           super
         end
-                
+        
         protected
         
         def subscribe_successful(connection, message)

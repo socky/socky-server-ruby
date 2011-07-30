@@ -41,7 +41,7 @@ module Socky
         
         begin
           config = YAML.load_file(path)
-        rescue
+        rescue Exception
           raise ArgumentError, 'invalid config file'
         end
         

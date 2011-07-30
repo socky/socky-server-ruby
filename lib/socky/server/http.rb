@@ -34,7 +34,7 @@ module Socky
         [202, {}, ['Event sent']]
       rescue ConnectionError => e
         [ e.status, {}, [e.message] ]
-      rescue
+      rescue Exception
         [ 500, {}, ['Unknown error'] ]
       end
       

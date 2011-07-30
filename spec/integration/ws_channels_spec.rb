@@ -96,47 +96,47 @@ describe 'WebSocket Channels' do
       
       it "should be able to join with valid auth" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:72fa6a183de7aa0dbeb10db03daec3d6e9fb590c38fc1b6aee0bc69a585c16ee' }.to_json)
       end
       
       it "should require modified auth to join with changing read rights" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:failure', 'channel' => channel_name })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'read' => false, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'read' => false, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:72fa6a183de7aa0dbeb10db03daec3d6e9fb590c38fc1b6aee0bc69a585c16ee' }.to_json)
       end
       
       it "should allow changing read rights with valid auth" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'read' => false, 'auth' => '432dd5e19710741c86f5d4df11ae49b8:d009971a8445ff099f43589743ce80f45257cf05d9795f2c87e801f50961fcb3' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'read' => false, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:cb123cdaf630653a61b7cd03941847a9a49d45d88d6c61f9858fb9754f7ad40a' }.to_json)
       end
       
       it "should require modified auth to join with changing write rights" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:failure', 'channel' => channel_name })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'write' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'write' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:72fa6a183de7aa0dbeb10db03daec3d6e9fb590c38fc1b6aee0bc69a585c16ee' }.to_json)
       end
       
       it "should allow changing read rights with valid auth" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'write' => true, 'auth' => '301a58a715be720051a696bd023ebee9:2a9c935303ed815ba0f9ea8c903a7848a28f6960a9db757dad5255fdff2db976' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'write' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:d7c118d5dad01318c8be2f96bd00e2d3f13bf2893270fd60d92c89027c78e035' }.to_json)
       end
       
       it "should require modified auth to join with changing hide right" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:failure', 'channel' => channel_name })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'hide' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'hide' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:72fa6a183de7aa0dbeb10db03daec3d6e9fb590c38fc1b6aee0bc69a585c16ee' }.to_json)
       end
       
       it "should allow changing hide rights with valid auth" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'hide' => true, 'auth' => '46529099f37bcb5eea247c40571761d7:84c852c9f119918d975024da59be55d09523c81d93c0376034d49ff7054e9d65' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'hide' => true, 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:2f8dfc64afdd0acc59f690f45d24b48d40fb9859dbe7dc39677b60457a64739c' }.to_json)
       end
       
       it "should require changing auth after changind user data" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:failure', 'channel' => channel_name })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'data' => "{\"some\":\"data\"}", 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:3546436fefe10ee4dfe752d3f11d758dc57b9dc043cf3f2ff9854d2d89c21d1d' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'data' => "{\"some\":\"data\"}", 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:72fa6a183de7aa0dbeb10db03daec3d6e9fb590c38fc1b6aee0bc69a585c16ee' }.to_json)
       end
       
       it "should allow passing user data with valid auth" do
         subject.should_receive(:send_data).with({ 'event' => 'socky:subscribe:success', 'channel' => channel_name, 'members' => [] })
-        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'data' => "{\"some\":\"data\"}", 'auth' => '9a1a526c8025713ab6cc4920cbd72606:330cb64a117f4f1323bc17e58fd870566c29d20dd101edae64c56811169c1b00' }.to_json)
+        subject.on_message({}, { 'event' => 'socky:subscribe', 'channel' => channel_name, 'data' => "{\"some\":\"data\"}", 'auth' => 'ec7ca4b2d08958ad7f98bb5df4f63c5c:9cdbfc5746f67c26784f75683a0f89a70f6079f0030f48ac8193458717f0791e' }.to_json)
       end
     end
   end
