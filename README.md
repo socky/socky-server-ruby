@@ -1,12 +1,18 @@
-# Socky - server in Ruby
+# Socky - server in Ruby [![](http://travis-ci.org/socky/socky-authenticator-ruby.png)](http://travis-ci.org/socky/socky-authenticator-ruby)
 
-Socky is push server for Ruby based on WebSockets. It allows you to break border between your application and client browser by letting the server initialize a connection and push data to the client.
+## Installation
 
-## Running
+``` bash
+$ gem install socky-authenticator
+```
+
+## Usage
 
 To use default config just run:
 
-    $ thin -R config.ru start
+``` bash
+$ thin -R config.ru start
+```
 
 You can also create your own rackup and config file to customize server.
 
