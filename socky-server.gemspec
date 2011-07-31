@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "socky/server/version"
 
 Gem::Specification.new do |s|
-  s.name        = "socky"
+  s.name        = "socky-server"
   s.version     = Socky::Server::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bernard Potocki"]
