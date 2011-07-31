@@ -2,19 +2,66 @@
 
 ## Installation
 
-``` bash
-$ gem install socky-authenticator
-```
+    $ gem install socky-server --pre
 
 ## Usage
 
-To use default config just run:
+Socky server provides two Rack middlewares - WebSocket and HTTP. Each one of them can be used separately, but they can be also used in one process. Example Rackup file could look like that:
 
-``` bash
-$ thin -R config.ru start
-```
+    require 'socky/server'
+    
+    map '/websocket' do
+      run Socky::Server::WebSocket.new
+    end
+    
+    map '/http' do
+      run Socky::Server::HTTP.new
+    end
 
-You can also create your own rackup and config file to customize server.
+## Configuration
+
+Both middlewares accept options as hash. Currently available options are:
+
+### :applications [Hash]
+
+Hash of supported applications. Each key is application name, each value is application secret. You can use as much applications as you want - each of them will have separate application address created by mixing hostname, middleware address and applicatio name. So i.e. for app "my_app" WebSocket application uri will be:
+
+    http://example.org/websocket/my_app
+
+### :debug [Boolean]
+
+Should application log output? Default Rack logger will be used, so demonized server will log to file. Please note that for HTTP middlewere Rack::CommonLogger will be more reliable that debug mode.
+
+### :config [String]
+
+Path to YAML config file. Config file should contain hash with exactly the same syntax like normal options.
+
+## Example configuration
+
+    require 'socky/server'
+
+    options = {
+      :debug => true,
+      :applications => {
+        :my_app => 'my_secret',
+        :other_app => 'other_secret'
+      }
+    }
+
+    map '/websocket' do
+      run Socky::Server::WebSocket.new options
+    end
+
+    map '/http' do
+      use Rack::CommonLogger
+      run Socky::Server::HTTP.new options
+    end
+
+    $ thin -R config.ru -p3001 start
+
+## Setting other options
+
+Options like demonizing, logging to file, SSL support and others should be supported by Rack server like Thin. Socky Server is utilizing all of them so we will not describe them here.
 
 ## Which Rack servers are currently supported?
 
