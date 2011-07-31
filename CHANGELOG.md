@@ -1,8 +1,17 @@
 # Changelog
 
-## Edge
+## 0.5.0.beta1 / 2011-08-01
 
-- rewrite from scratch
+Socky was rewritten from scratch. From this version it's Rack application and is based on
+open protocol, and have a lot of new features. Some of them:
+
+- Rack app - you can run both Socky and your web-application in the same process!
+- New, standarized communication protocol(it will be easy to implement Socky in other languages)
+- New user authentication process - much faster and more secure
+- Allow users to dynamicly subscribe/unsubscribe from channels
+- New events system - easier to learn and much more powerfull
+
+And many more - please check [Socky website](http://socky.org) for more or check specific Socky elements at [Github](http://github.com/socky).
 
 ## 0.4.0 / 2010-10-27
 
