@@ -2,21 +2,25 @@
 
 ## Installation
 
-    $ gem install socky-server --pre
+``` bash
+$ gem install socky-server --pre
+```
 
 ## Usage
 
 Socky server provides two Rack middlewares - WebSocket and HTTP. Each one of them can be used separately, but they can be also used in one process. Example Rackup file could look like that:
 
-    require 'socky/server'
-    
-    map '/websocket' do
-      run Socky::Server::WebSocket.new
-    end
-    
-    map '/http' do
-      run Socky::Server::HTTP.new
-    end
+``` ruby
+require 'socky/server'
+
+map '/websocket' do
+  run Socky::Server::WebSocket.new
+end
+
+map '/http' do
+  run Socky::Server::HTTP.new
+end
+```
 
 ## Configuration
 
@@ -26,7 +30,9 @@ Both middlewares accept options as hash. Currently available options are:
 
 Hash of supported applications. Each key is application name, each value is application secret. You can use as much applications as you want - each of them will have separate application address created by mixing hostname, middleware address and applicatio name. So i.e. for app "my_app" WebSocket application uri will be:
 
-    http://example.org/websocket/my_app
+```
+http://example.org/websocket/my_app
+```
 
 ### :debug [Boolean]
 
@@ -40,28 +46,32 @@ Path to YAML config file. Config file should contain hash with exactly the same 
 
 Create file 'config.ru':
 
-    require 'socky/server'
+``` ruby
+require 'socky/server'
 
-    options = {
-      :debug => true,
-      :applications => {
-        :my_app => 'my_secret',
-        :other_app => 'other_secret'
-      }
-    }
+options = {
+  :debug => true,
+  :applications => {
+    :my_app => 'my_secret',
+    :other_app => 'other_secret'
+  }
+}
 
-    map '/websocket' do
-      run Socky::Server::WebSocket.new options
-    end
+map '/websocket' do
+  run Socky::Server::WebSocket.new options
+end
 
-    map '/http' do
-      use Rack::CommonLogger
-      run Socky::Server::HTTP.new options
-    end
+map '/http' do
+  use Rack::CommonLogger
+  run Socky::Server::HTTP.new options
+end
+```
 
 Run file using Thin:
 
-    $ thin -R config.ru -p3001 start
+``` bash
+$ thin -R config.ru -p3001 start
+```
 
 ## Setting other options
 
