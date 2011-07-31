@@ -38,6 +38,8 @@ Path to YAML config file. Config file should contain hash with exactly the same 
 
 ## Example configuration
 
+Create file 'config.ru':
+
     require 'socky/server'
 
     options = {
@@ -56,6 +58,8 @@ Path to YAML config file. Config file should contain hash with exactly the same 
       use Rack::CommonLogger
       run Socky::Server::HTTP.new options
     end
+
+Run file using Thin:
 
     $ thin -R config.ru -p3001 start
 
