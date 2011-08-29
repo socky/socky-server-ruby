@@ -51,7 +51,7 @@ module Socky
         
         def deliver(connection, message)
           return unless connection.nil? || (subscribers[connection.id] && subscribers[connection.id]['write'])
-          send_data({ 'event' => message.event, 'channel' => self.name, 'data' => message.user_data })
+          send_data(CachedJsonHash['event' => message.event, 'channel' => self.name, 'data' => message.user_data ])
         end
         
         protected
