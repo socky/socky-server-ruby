@@ -1,10 +1,13 @@
 module Socky
   module Server
     class CachedJsonHash < Hash
-      include Misc
 
       def to_json
         @json ||= super
+      end
+
+      def remove_cache
+        @json = nil
       end
 
     end
