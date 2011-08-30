@@ -34,8 +34,9 @@ module Socky
         end
         
         def send_data(data, except = nil)
+          cached_json_data = CachedJsonHash[data]
           self.subscribers.each do |subscriber_id, subscriber|
-            subscriber['connection'].send_data(data) unless subscriber_id == except || !subscriber['read']
+            subscriber['connection'].send_data(cached_json_data) unless subscriber_id == except || !subscriber['read']
           end
         end
         
@@ -51,7 +52,7 @@ module Socky
         
         def deliver(connection, message)
           return unless connection.nil? || (subscribers[connection.id] && subscribers[connection.id]['write'])
-          send_data(CachedJsonHash['event' => message.event, 'channel' => self.name, 'data' => message.user_data ])
+          send_data('event' => message.event, 'channel' => self.name, 'data' => message.user_data)
         end
         
         protected
