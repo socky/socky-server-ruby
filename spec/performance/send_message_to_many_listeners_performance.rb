@@ -8,6 +8,7 @@ describe 'Sending Message To Many Listeners Performance' do
     [1, 10, 100].each do |count|
       results = []
       5.times do 
+        @channel = "private"
         @application = application_with_listeners(count)
         results << Benchmark.realtime {send_messages(1)}
         clean_application

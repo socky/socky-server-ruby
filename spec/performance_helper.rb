@@ -19,7 +19,7 @@ def add_listener
   websocket = mock_websocket(@application.name)
   env = { 'PATH_INFO' => '/websocket/' + @application.name }
   websocket.on_open(env)
-  data = {'event' => 'socky:subscribe', 'channel' => 'private-channel', 'auth' => 'test_auth'}
+  data = {'event' => 'socky:subscribe', 'channel' => "#{@channel}-channel", 'auth' => 'test_auth'}
   websocket.on_message(env, data)
   websocket
 end
@@ -28,19 +28,20 @@ def add_writer
   @writer_ws = mock_websocket(@application.name)
   env = { 'PATH_INFO' => '/websocket/' + @application.name }
   @writer_ws.on_open(env)
-  data = {'event' => 'socky:subscribe', 'channel' => 'private-channel', 'write' => 'true', 'auth' => 'test_auth'}
+  data = {'event' => 'socky:subscribe', 'channel' => "#{@channel}-channel", 'write' => 'true', 'auth' => 'test_auth'}
   @writer_ws.on_message(env, data)
   @writer_ws
 end
 
 def send_messages count
   env = { 'PATH_INFO' => '/websocket/' + @application.name }
-  data = {'event' => 'send', 'channel' => 'private-channel', 'user_data' => "test_message"}
+  data = {'event' => 'send', 'channel' => "#{@channel}-channel", 'user_data' => "test_message"}
   count.times { @writer_ws.on_message(env, data) }
 end
 
 def clean_application
   @application.connections.values.each {|c| c.destroy}
+  Socky::Server::Channel::Private.list['test_application'] = Hash.new
   Socky::Server::Channel::Private.list['test_application'] = Hash.new
   Socky::Server::Application.list.delete('test_application') 
 end
