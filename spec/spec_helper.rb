@@ -8,13 +8,16 @@ def mock_websocket(application)
   env = {}
   env['PATH_INFO'] = '/websocket/' + application
   connection = Socky::Server::WebSocket.new.call(env)
-  connection.stub!(:send_data)
+  send_data_method = connection.method(:send_data)
+  connection.stub!(:send_data).and_return do |*args|
+    a = send_data_method.call(*args)
+  end
   connection
 end
 
 def mock_connection(application)
   websocket = mock_websocket(application)
-  
+
   env = { 'PATH_INFO' => '/websocket/' + application }
   websocket.on_open(env)
 end
