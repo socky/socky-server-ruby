@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe Socky::Server::Application do
-  
+
   context "#find" do
     it "should return nil if provided application doesn't exists" do
       described_class.find('invalid').should be_nil
     end
     it "should return application if exists" do
       begin
+        described_class.list.delete('some_app') # Strange bugs on Travis
         instance = described_class.new('some_app', 'some_secret')
         described_class.find('some_app').should equal(instance)
       ensure
@@ -15,7 +16,7 @@ describe Socky::Server::Application do
       end
     end
   end
-  
+
   context "#new" do
     it "should save gived application on list" do
       described_class.list.delete('some_app') # Strange bugs in ree
@@ -29,16 +30,16 @@ describe Socky::Server::Application do
       described_class.list.keys.should be_empty
     end
   end
-  
+
   context "instance" do
     subject { described_class.new('some_app', 'some_secret') }
-    
+
     its(:name) { should eql('some_app') }
     its(:secret) { should eql('some_secret') }
     its(:connections) { should eql({}) }
-    
+
     let(:connection) { mock(Socky::Server::Connection, :id => 'some_id') }
-    
+
     it "should be able to add connection to list" do
       subject.add_connection(connection)
       subject.connections[connection.id].should equal(connection)
@@ -50,5 +51,5 @@ describe Socky::Server::Application do
       subject.connections[connection.id].should be_nil
     end
   end
-  
+
 end
