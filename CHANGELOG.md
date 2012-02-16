@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0 / 2012-02-16
+
+Stable release
+
 ## 0.5.0.beta1 / 2011-08-01
 
 Socky was rewritten from scratch. From this version it's Rack application and is based on

@@ -11,9 +11,9 @@ Gem::Specification.new do |s|
   s.homepage    = "http://socky.org"
   s.summary     = %q{Socky is a WebSocket server and client for Ruby}
   s.description = %q{Socky is a WebSocket server and client for Ruby}
-  
-  s.add_dependency 'websocket-rack', ">= 0.3.1"
-  s.add_dependency 'socky-authenticator', '~> 0.5.0.beta5'
+
+  s.add_dependency 'websocket-rack', ">= 0.3.2"
+  s.add_dependency 'socky-authenticator', '~> 0.5.0'
   s.add_dependency 'json'
   s.add_development_dependency 'rspec', '~> 2.0'
 
