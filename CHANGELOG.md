@@ -2,7 +2,7 @@
 
 ## 0.5.0 / 2012-02-16
 
-Stable release
+- Performance fixes - sending messages should be now 3-5 times faster(thanks to @piotrmarat)
 
 ## 0.5.0.beta1 / 2011-08-01
 

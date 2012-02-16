@@ -10,14 +10,15 @@ module Socky
   module Server
     ROOT = File.expand_path(File.dirname(__FILE__))
   
-    autoload :Application, "#{ROOT}/server/application"
-    autoload :Channel,     "#{ROOT}/server/channel"
-    autoload :Config,      "#{ROOT}/server/config"
-    autoload :Connection,  "#{ROOT}/server/connection"
-    autoload :HTTP,        "#{ROOT}/server/http"
-    autoload :Logger,      "#{ROOT}/server/logger"
-    autoload :Message,     "#{ROOT}/server/message"
-    autoload :Misc,        "#{ROOT}/server/misc"
-    autoload :WebSocket,   "#{ROOT}/server/websocket"
+    autoload :Application,     "#{ROOT}/server/application"
+    autoload :Channel,         "#{ROOT}/server/channel"
+    autoload :Config,          "#{ROOT}/server/config"
+    autoload :Connection,      "#{ROOT}/server/connection"
+    autoload :HTTP,            "#{ROOT}/server/http"
+    autoload :Logger,          "#{ROOT}/server/logger"
+    autoload :Message,         "#{ROOT}/server/message"
+    autoload :Misc,            "#{ROOT}/server/misc"
+    autoload :WebSocket,       "#{ROOT}/server/websocket"
+    autoload :CachedJsonHash,  "#{ROOT}/server/cached_json_hash"
   end
 end
