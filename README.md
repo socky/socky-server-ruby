@@ -28,7 +28,7 @@ Both middlewares accept options as hash. Currently available options are:
 
 ### :applications [Hash]
 
-Hash of supported applications. Each key is application name, each value is application secret. You can use as much applications as you want - each of them will have separate application address created by mixing hostname, middleware address and applicatio name. So i.e. for app "my_app" WebSocket application uri will be:
+Hash of supported applications. Each key is application name, each value is application secret. You can use as much applications as you want - each of them will have separate application address created by mixing hostname, middleware address and application name. So i.e. for app "my_app" WebSocket application uri will be:
 
 ```
 http://example.org/websocket/my_app
