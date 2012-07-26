@@ -38,7 +38,7 @@ http://example.org/websocket/my_app
 
 Should application log output? Default Rack logger will be used, so demonized server will log to file. Please note that for HTTP middlewere Rack::CommonLogger will be more reliable that debug mode.
 
-### :config [String]
+### :config_file [String]
 
 Path to YAML config file. Config file should contain hash with exactly the same syntax like normal options.
 
