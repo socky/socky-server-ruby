@@ -1,4 +1,5 @@
-# Socky - server in Ruby [![](https://travis-ci.org/socky/socky-server-ruby.png)](http://travis-ci.org/socky/socky-server-ruby)
+# Socky - server in Ruby
+[![Build Status](https://travis-ci.org/socky/socky-server-ruby.png)](http://travis-ci.org/socky/socky-server-ruby) [![Dependency Status](https://gemnasium.com/socky/socky-server-ruby.png)](http://gemnasium.com/socky/socky-server-ruby)
 
 ## Installation
 
